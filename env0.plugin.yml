@@ -15,15 +15,15 @@ run:
     CHECKOV_VERSION="${inputs.checkov_version}"
     
     if [ -z "$CHECKOV_VERSION" ]; then
-      echo "no version specified for checkov. installing latest version"
-      sudo pip install -U checkov
+      echo -e "\033[1;33mno version specified for checkov. installing latest\033[0m"
+      brew install checkov
     else
       echo "installing $CHECKOV_VERSION"
       pip install -U "checkov==$CHECKOV_VERSION"
     fi
     
     ELAPSED_TIME=$(($SECONDS - $START_TIME))
-    echo "SUCCESS: installation took $ELAPSED_TIME seconds."
+    echo -e "\033[0;32mSUCCESS: installation took \033[1;36m$ELAPSED_TIME\033[0;32m seconds.\033[0m"
     checkov --directory ${inputs.directory} ${inputs.flags}
 
 
