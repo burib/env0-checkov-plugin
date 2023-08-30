@@ -16,6 +16,12 @@ run:
     
     if [ -z "$CHECKOV_VERSION" ]; then
       echo -e "\033[1;33mno version specified for checkov. installing latest\033[0m"
+      
+      test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+      test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      test -r ~/.bash_profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bash_profile
+      echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
+      
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     
       brew install checkov
