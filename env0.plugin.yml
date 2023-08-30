@@ -11,10 +11,21 @@ inputs:
     required: false
 run:
   exec: |
-    if [[ -z "${inputs.checkov_version}" ]]; then
+    START_TIME=$SECONDS
+    CHECKOV_VERSION="${inputs.checkov_version}"
+    
+    if [ -z "$CHECKOV_VERSION" ]; then
+      echo "no version specified for checkov. installing latest version"
       pip3 install --upgrade pip && pip3 install --upgrade setuptools
       pip3 install checkov
     else
-      sudo pip install checkov==${inputs.checkov_version}
+      echo "installing $CHECKOV_VERSION"
+      pip install -U "checkov==$CHECKOV_VERSION"
     fi
+    
+    ELAPSED_TIME=$(($SECONDS - $START_TIME))
+    echo "SUCCESS: installation took $ELAPSED_TIME seconds."
     checkov --directory ${inputs.directory} ${inputs.flags}
+
+
+      
