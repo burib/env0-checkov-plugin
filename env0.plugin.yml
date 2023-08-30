@@ -16,6 +16,15 @@ run:
     
     if [ -z "$CHECKOV_VERSION" ]; then
       echo -e "\033[1;33mno version specified for checkov. installing latest\033[0m"
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    
+      adduser -D -s /bin/bash linuxbrew
+      echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
+      su -l linuxbrew
+
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+      PATH=$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH    
+    
       brew install checkov
     else
       echo "installing $CHECKOV_VERSION"
@@ -27,4 +36,4 @@ run:
     checkov --directory ${inputs.directory} ${inputs.flags}
 
 
-      
+
