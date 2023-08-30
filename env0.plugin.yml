@@ -12,7 +12,8 @@ inputs:
 run:
   exec: |
     if [[ -z "${inputs.checkov_version}" ]]; then
-      sudo pip install -U checkov
+      pip3 install --upgrade pip && pip3 install --upgrade setuptools
+      pip3 install checkov
     else
       sudo pip install checkov==${inputs.checkov_version}
     fi
