@@ -9,10 +9,9 @@ inputs:
   checkov_version:
     description: The version of Checkov to install.
     required: false
-    default: "latest"
 run:
   exec: |
-    if [[ "${inputs.checkov_version}" == "latest" ]]; then
+    if [[ -z "${inputs.checkov_version}" ]]; then
       sudo pip install -U checkov
     else
       sudo pip install checkov==${inputs.checkov_version}
