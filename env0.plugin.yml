@@ -17,6 +17,7 @@ run:
     if [ -z "$CHECKOV_VERSION" ]; then
       echo -e "\033[1;33mno version specified for checkov. installing latest\033[0m"
       
+      pip3 install --upgrade pip && pip3 install --upgrade setuptools
       pip3 install checkov
     else
       echo "installing $CHECKOV_VERSION"
